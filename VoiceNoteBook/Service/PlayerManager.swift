@@ -6,11 +6,61 @@
 //  Copyright © 2016年 牛严. All rights reserved.
 //
 
-class PlayerManager {
-    static let player = PlayerManager()
-    private init() {}
+import AVFoundation
+
+class PlayerManager: NSObject{
     
-    func test()  {
-        print("test")
+    static let VNPlayer = PlayerManager()
+
+    let session:AVAudioSession = AVAudioSession.sharedInstance()
+    var player:AVAudioPlayer!
+
+    private override init() {
+        super.init()
+        try! session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+    }
+    
+    ///播放最近录制的音频
+    func playLatest()  {
+        play(RecordManager.VNRecorder.latestFilePath!)
+    }
+    
+    ///播放指定路径的音频
+    func play(_ url:URL)  {
+        try! session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+        do {
+            player = try AVAudioPlayer.init(contentsOf: url)
+            player.prepareToPlay()
+            player.volume = 1.0
+            player.delegate = self
+            player.play()
+        } catch let error as NSError {
+            self.player = nil
+            print(error.localizedDescription)
+        } catch {
+            print("player初始化失败")
+        }
+    }
+    
+    ///停止当前正在播放的音频，如果有的话
+    func stopPlaying() {
+        if (player != nil) {
+            player.stop()
+        }
+    }
+}
+
+
+extension PlayerManager : AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        print("播放是否完成： \(flag)")
+        self.player = nil
+    }
+    
+    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+        if let e = error {
+            print("\(e.localizedDescription)")
+        }
     }
 }

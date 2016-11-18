@@ -146,7 +146,7 @@
 				TargetAttributes = {
 					4AF5528D1DDE9A5F00720C94 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = C4Q55SNFQ6;
+						DevelopmentTeam = Z9M2NMJFP5;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -317,7 +317,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = C4Q55SNFQ6;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				INFOPLIST_FILE = VoiceNoteBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.niuyan.VoiceNoteBook;
@@ -330,7 +330,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = C4Q55SNFQ6;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				INFOPLIST_FILE = VoiceNoteBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.niuyan.VoiceNoteBook;

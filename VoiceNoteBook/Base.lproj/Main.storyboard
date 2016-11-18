@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gLM-MX-HoU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gLM-MX-HoU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Voice RecordVC-->
+        <!--录音-->
         <scene sceneID="6cx-xK-yjx">
             <objects>
                 <viewController id="4bh-cc-vpR" customClass="VoiceRecordVC" customModule="VoiceNoteBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -25,18 +25,30 @@
                                     <constraint firstAttribute="height" constant="100" id="YKX-ki-Myi"/>
                                 </constraints>
                                 <connections>
-                                    <action selector="RecordBtnDownAction:" destination="4bh-cc-vpR" eventType="touchDown" id="HVv-cL-tsM"/>
-                                    <action selector="RecordBtnUpAction:" destination="4bh-cc-vpR" eventType="touchUpInside" id="w8v-Xe-9Tn"/>
+                                    <action selector="recordBtnDownAction:" destination="4bh-cc-vpR" eventType="touchDown" id="2Ap-mJ-n7L"/>
+                                    <action selector="recordBtnUpAction:" destination="4bh-cc-vpR" eventType="touchUpInside" id="CqZ-bP-UKR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brC-lg-Xpb">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="6xS-yG-0HT"/>
+                                    <constraint firstAttribute="height" constant="30" id="9PD-u0-kUc"/>
+                                </constraints>
+                                <state key="normal" title="播放"/>
+                                <connections>
+                                    <action selector="playBtnTap:" destination="4bh-cc-vpR" eventType="touchUpInside" id="oqH-Ic-xTF"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="brC-lg-Xpb" firstAttribute="centerX" secondItem="Zlx-dp-aet" secondAttribute="centerX" id="JJT-nG-nQN"/>
                             <constraint firstItem="IrN-fK-Ckt" firstAttribute="centerX" secondItem="Zlx-dp-aet" secondAttribute="centerX" id="ODi-Ai-zrQ"/>
+                            <constraint firstItem="brC-lg-Xpb" firstAttribute="top" secondItem="IrN-fK-Ckt" secondAttribute="bottom" constant="44.5" id="VGW-tW-Rbn"/>
                             <constraint firstItem="IrN-fK-Ckt" firstAttribute="centerY" secondItem="Zlx-dp-aet" secondAttribute="centerY" id="bBm-4L-Twm"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ke9-uP-XMB">
+                    <navigationItem key="navigationItem" title="录音" id="ke9-uP-XMB">
                         <barButtonItem key="rightBarButtonItem" title="音频列表" id="20d-Dr-Mnf">
                             <connections>
                                 <action selector="pushRecordListVC:" destination="4bh-cc-vpR" id="Ssn-oA-kdJ"/>
@@ -45,6 +57,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="playBtn" destination="brC-lg-Xpb" id="Ies-Nj-3qS"/>
                         <outlet property="recordBtn" destination="IrN-fK-Ckt" id="hjG-My-rCi"/>
                     </connections>
                 </viewController>
@@ -52,7 +65,7 @@
             </objects>
             <point key="canvasLocation" x="816.79999999999995" y="272.11394302848578"/>
         </scene>
-        <!--Record ListVC-->
+        <!--音频列表-->
         <scene sceneID="FXn-wd-i6R">
             <objects>
                 <viewController id="QSq-XP-ITD" customClass="RecordListVC" customModule="VoiceNoteBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -64,40 +77,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ymf-gu-Mv8">
-                                <frame key="frameInset" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="40" id="4it-ZE-Au0" customClass="RecordListCell" customModule="VoiceNoteBook" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="40"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4it-ZE-Au0" id="LFf-G0-KET">
-                                            <frame key="frameInset" width="375" height="39"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOu-LX-7j0">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="zOu-LX-7j0" secondAttribute="bottom" id="7st-T4-ZQN"/>
-                                                <constraint firstItem="zOu-LX-7j0" firstAttribute="leading" secondItem="LFf-G0-KET" secondAttribute="leading" constant="8" id="Sa5-On-Kkh"/>
-                                                <constraint firstItem="zOu-LX-7j0" firstAttribute="top" secondItem="LFf-G0-KET" secondAttribute="top" id="vPi-xv-V3s"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="titleLabel" destination="zOu-LX-7j0" id="pO5-5f-VUb"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="40" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Ymf-gu-Mv8">
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="QSq-XP-ITD" id="Xhm-Kg-1gj"/>
+                                    <outlet property="delegate" destination="QSq-XP-ITD" id="tS8-CD-6Hc"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ymf-gu-Mv8" firstAttribute="leading" secondItem="AB6-iw-B2h" secondAttribute="leading" id="JFG-TU-c9j"/>
+                            <constraint firstItem="Ymf-gu-Mv8" firstAttribute="top" secondItem="AB6-iw-B2h" secondAttribute="top" id="gRk-RN-Kpq"/>
+                            <constraint firstItem="MAZ-uX-0uy" firstAttribute="top" secondItem="Ymf-gu-Mv8" secondAttribute="bottom" id="lec-XO-go0"/>
+                            <constraint firstAttribute="trailing" secondItem="Ymf-gu-Mv8" secondAttribute="trailing" id="ur5-Cw-Oju"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="UD7-yj-iOg"/>
+                    <navigationItem key="navigationItem" title="音频列表" id="UD7-yj-iOg"/>
                     <connections>
                         <outlet property="tableView" destination="Ymf-gu-Mv8" id="kOo-ab-oKx"/>
                     </connections>

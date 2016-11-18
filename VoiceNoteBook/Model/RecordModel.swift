@@ -14,5 +14,5 @@ public class RecordModel: NSObject {
     public var title: String!
     
     ///录音文件存储路径
-    public var filePath: String!
+    public var filePath: URL!
 }

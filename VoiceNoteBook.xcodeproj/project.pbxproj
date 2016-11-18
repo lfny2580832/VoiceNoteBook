@@ -8,20 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		4AF552921DDE9A5F00720C94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552911DDE9A5F00720C94 /* AppDelegate.swift */; };
-		4AF552941DDE9A5F00720C94 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552931DDE9A5F00720C94 /* ViewController.swift */; };
 		4AF552971DDE9A5F00720C94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AF552951DDE9A5F00720C94 /* Main.storyboard */; };
 		4AF552991DDE9A5F00720C94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AF552981DDE9A5F00720C94 /* Assets.xcassets */; };
 		4AF5529C1DDE9A5F00720C94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AF5529A1DDE9A5F00720C94 /* LaunchScreen.storyboard */; };
+		4AF552A81DDEB06500720C94 /* VoiceRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552A71DDEB06500720C94 /* VoiceRecordVC.swift */; };
+		4AF552AA1DDEB16600720C94 /* RecordListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552A91DDEB16600720C94 /* RecordListVC.swift */; };
+		4AF552AC1DDEB1A400720C94 /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552AB1DDEB1A400720C94 /* RecordManager.swift */; };
+		4AF552B21DDEB1FD00720C94 /* RecordListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552B11DDEB1FD00720C94 /* RecordListCell.swift */; };
+		4AF552B81DDEC6E900720C94 /* Macro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552B71DDEC6E900720C94 /* Macro.swift */; };
+		4AF552BB1DDEE04400720C94 /* RecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552BA1DDEE04400720C94 /* RecordModel.swift */; };
+		4AF552BD1DDEE0FF00720C94 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552BC1DDEE0FF00720C94 /* PlayerManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4AF5528E1DDE9A5F00720C94 /* VoiceNoteBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceNoteBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AF552911DDE9A5F00720C94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4AF552931DDE9A5F00720C94 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4AF552961DDE9A5F00720C94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4AF552981DDE9A5F00720C94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4AF5529B1DDE9A5F00720C94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4AF5529D1DDE9A5F00720C94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AF552A71DDEB06500720C94 /* VoiceRecordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceRecordVC.swift; sourceTree = "<group>"; };
+		4AF552A91DDEB16600720C94 /* RecordListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordListVC.swift; sourceTree = "<group>"; };
+		4AF552AB1DDEB1A400720C94 /* RecordManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
+		4AF552B11DDEB1FD00720C94 /* RecordListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordListCell.swift; sourceTree = "<group>"; };
+		4AF552B71DDEC6E900720C94 /* Macro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Macro.swift; sourceTree = "<group>"; };
+		4AF552BA1DDEE04400720C94 /* RecordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordModel.swift; sourceTree = "<group>"; };
+		4AF552BC1DDEE0FF00720C94 /* PlayerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,13 +67,51 @@
 			isa = PBXGroup;
 			children = (
 				4AF552911DDE9A5F00720C94 /* AppDelegate.swift */,
-				4AF552931DDE9A5F00720C94 /* ViewController.swift */,
+				4AF552B61DDEC6D900720C94 /* Macro */,
+				4AF552A41DDEB01000720C94 /* Service */,
+				4AF552B91DDEE04400720C94 /* Model */,
+				4AF552A31DDEB00900720C94 /* Module */,
 				4AF552951DDE9A5F00720C94 /* Main.storyboard */,
 				4AF552981DDE9A5F00720C94 /* Assets.xcassets */,
 				4AF5529A1DDE9A5F00720C94 /* LaunchScreen.storyboard */,
 				4AF5529D1DDE9A5F00720C94 /* Info.plist */,
 			);
 			path = VoiceNoteBook;
+			sourceTree = "<group>";
+		};
+		4AF552A31DDEB00900720C94 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				4AF552A71DDEB06500720C94 /* VoiceRecordVC.swift */,
+				4AF552A91DDEB16600720C94 /* RecordListVC.swift */,
+				4AF552B11DDEB1FD00720C94 /* RecordListCell.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		4AF552A41DDEB01000720C94 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				4AF552AB1DDEB1A400720C94 /* RecordManager.swift */,
+				4AF552BC1DDEE0FF00720C94 /* PlayerManager.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		4AF552B61DDEC6D900720C94 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				4AF552B71DDEC6E900720C94 /* Macro.swift */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
+		4AF552B91DDEE04400720C94 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4AF552BA1DDEE04400720C94 /* RecordModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +187,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AF552941DDE9A5F00720C94 /* ViewController.swift in Sources */,
+				4AF552AA1DDEB16600720C94 /* RecordListVC.swift in Sources */,
+				4AF552B21DDEB1FD00720C94 /* RecordListCell.swift in Sources */,
 				4AF552921DDE9A5F00720C94 /* AppDelegate.swift in Sources */,
+				4AF552A81DDEB06500720C94 /* VoiceRecordVC.swift in Sources */,
+				4AF552BB1DDEE04400720C94 /* RecordModel.swift in Sources */,
+				4AF552BD1DDEE0FF00720C94 /* PlayerManager.swift in Sources */,
+				4AF552AC1DDEB1A400720C94 /* RecordManager.swift in Sources */,
+				4AF552B81DDEC6E900720C94 /* Macro.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +358,7 @@
 				4AF552A21DDE9A5F00720C94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -52,7 +52,7 @@
                         <barButtonItem key="rightBarButtonItem" title="音频列表" id="20d-Dr-Mnf">
                             <connections>
                                 <action selector="pushRecordListVC:" destination="4bh-cc-vpR" id="Ssn-oA-kdJ"/>
-                                <segue destination="QSq-XP-ITD" kind="push" id="zue-nv-OO1"/>
+                                <segue destination="QSq-XP-ITD" kind="show" id="8zI-U7-h7x"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

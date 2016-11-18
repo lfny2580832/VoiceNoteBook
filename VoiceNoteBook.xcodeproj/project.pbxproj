@@ -16,7 +16,7 @@
 		4AF552AC1DDEB1A400720C94 /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552AB1DDEB1A400720C94 /* RecordManager.swift */; };
 		4AF552B21DDEB1FD00720C94 /* RecordListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552B11DDEB1FD00720C94 /* RecordListCell.swift */; };
 		4AF552B81DDEC6E900720C94 /* Macro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552B71DDEC6E900720C94 /* Macro.swift */; };
-		4AF552BB1DDEE04400720C94 /* RecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552BA1DDEE04400720C94 /* RecordModel.swift */; };
+		4AF552BB1DDEE04400720C94 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552BA1DDEE04400720C94 /* Record.swift */; };
 		4AF552BD1DDEE0FF00720C94 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552BC1DDEE0FF00720C94 /* PlayerManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,7 +32,7 @@
 		4AF552AB1DDEB1A400720C94 /* RecordManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
 		4AF552B11DDEB1FD00720C94 /* RecordListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordListCell.swift; sourceTree = "<group>"; };
 		4AF552B71DDEC6E900720C94 /* Macro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Macro.swift; sourceTree = "<group>"; };
-		4AF552BA1DDEE04400720C94 /* RecordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordModel.swift; sourceTree = "<group>"; };
+		4AF552BA1DDEE04400720C94 /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		4AF552BC1DDEE0FF00720C94 /* PlayerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,7 +109,7 @@
 		4AF552B91DDEE04400720C94 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4AF552BA1DDEE04400720C94 /* RecordModel.swift */,
+				4AF552BA1DDEE04400720C94 /* Record.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -191,7 +191,7 @@
 				4AF552B21DDEB1FD00720C94 /* RecordListCell.swift in Sources */,
 				4AF552921DDE9A5F00720C94 /* AppDelegate.swift in Sources */,
 				4AF552A81DDEB06500720C94 /* VoiceRecordVC.swift in Sources */,
-				4AF552BB1DDEE04400720C94 /* RecordModel.swift in Sources */,
+				4AF552BB1DDEE04400720C94 /* Record.swift in Sources */,
 				4AF552BD1DDEE0FF00720C94 /* PlayerManager.swift in Sources */,
 				4AF552AC1DDEB1A400720C94 /* RecordManager.swift in Sources */,
 				4AF552B81DDEC6E900720C94 /* Macro.swift in Sources */,

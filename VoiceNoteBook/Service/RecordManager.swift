@@ -16,7 +16,7 @@ class RecordManager: NSObject{
     var recorder: AVAudioRecorder!
     ///每次录音完成后赋值，确保player可以播放最近一次的录音
     var latestFilePath: URL!
-
+    var records = [Record]()
     let session:AVAudioSession = AVAudioSession.sharedInstance()
     let recordSettings:[String : AnyObject] = [
         AVFormatIDKey:             NSNumber(value: kAudioFormatMPEG4AAC),
@@ -81,8 +81,8 @@ class RecordManager: NSObject{
     ///文件名
     func fileName() -> String {
         let format = DateFormatter()
-        format.dateFormat="yyyy-MM-dd-HH-mm-ss"
-        return "\(format.string(from: Date()))_record.aac"
+        format.dateFormat="yyyy.MM.dd-HH:mm:ss"
+        return "\(format.string(from: Date())).aac"
     }
 
     ///音频列表
@@ -108,10 +108,14 @@ extension RecordManager: AVAudioRecorderDelegate{
     //录制完成
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder,successfully flag: Bool) {
 
-        self.recorder = nil
-
+        let record = Record()
+        record.filePath = recorder.url
+        record.title = recorder.url.lastPathComponent
         
-        print("文件录制完成，准备上传七牛云");
+        records.append(record)
+        
+        self.recorder = nil
+        print("\(record)文件录制完成，准备上传七牛云");
         //上传七牛
     }
     

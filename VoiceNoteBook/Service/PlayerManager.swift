@@ -17,7 +17,13 @@ class PlayerManager: NSObject{
 
     private override init() {
         super.init()
-        try! session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+    }
+    
+    ///设置session类型及状态（需与recorderer进行区分）
+    private func setSessionStatus(isActive: Bool)  {
+        let session:AVAudioSession = AVAudioSession.sharedInstance()
+        try! session.setCategory(AVAudioSessionCategoryPlayback)
+        try! session.setActive(isActive)
     }
     
     ///播放最近录制的音频
@@ -27,7 +33,7 @@ class PlayerManager: NSObject{
     
     ///播放指定路径的音频
     func play(_ url:URL)  {
-        try! session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+        setSessionStatus(isActive: true)
         do {
             player = try AVAudioPlayer.init(contentsOf: url)
             player.prepareToPlay()
@@ -35,10 +41,8 @@ class PlayerManager: NSObject{
             player.delegate = self
             player.play()
         } catch let error as NSError {
-            self.player = nil
+            stopPlaying()
             print(error.localizedDescription)
-        } catch {
-            print("player初始化失败")
         }
     }
     
@@ -46,6 +50,7 @@ class PlayerManager: NSObject{
     func stopPlaying() {
         if (player != nil) {
             player.stop()
+            setSessionStatus(isActive: false)
         }
     }
 }
@@ -53,8 +58,7 @@ class PlayerManager: NSObject{
 
 extension PlayerManager : AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        print("播放是否完成： \(flag)")
-        self.player = nil
+        stopPlaying()
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {

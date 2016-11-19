@@ -8,6 +8,7 @@
 
 import AVFoundation
 
+let UserDefaultRecords = "userDefaultRecords"
 
 class RecordManager: NSObject{
 
@@ -16,7 +17,11 @@ class RecordManager: NSObject{
     var recorder: AVAudioRecorder!
     ///每次录音完成后赋值，确保player可以播放最近一次的录音
     var latestFilePath: URL!
-    var records = [Record]()
+    ///本地音频列表索引
+    var records: [NSString]?
+    let defaults = UserDefaults.standard
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    
     let session:AVAudioSession = AVAudioSession.sharedInstance()
     let recordSettings:[String : AnyObject] = [
         AVFormatIDKey:             NSNumber(value: kAudioFormatMPEG4AAC),
@@ -28,9 +33,8 @@ class RecordManager: NSObject{
 
     private override init() {
         super.init()
-
         try! session.setCategory(AVAudioSessionCategoryPlayAndRecord)
-        
+        records = recordingList()
     }
 
     ///开始录制
@@ -53,15 +57,11 @@ class RecordManager: NSObject{
         }
     }
     
-    
     ///初始化recorder
     func initRecorder() {
         
-        let url: URL = filePath()
-        print("文件路径: '\(url)'")
-        
         do {
-            latestFilePath = filePath()
+            latestFilePath = audioFilePath()
             recorder = try AVAudioRecorder(url: latestFilePath, settings: recordSettings)
             recorder.delegate = self
         } catch let error as NSError {
@@ -72,9 +72,8 @@ class RecordManager: NSObject{
         }
     }
     
-    ///文件路径
-    func filePath() -> URL {
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    ///音频文件路径
+    func audioFilePath() -> URL {
         return documentsDirectory.appendingPathComponent(fileName())
     }
     
@@ -84,21 +83,22 @@ class RecordManager: NSObject{
         format.dateFormat="yyyy.MM.dd-HH:mm:ss"
         return "\(format.string(from: Date())).aac"
     }
-
-    ///音频列表
-    func recordingList() -> [URL] {
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        do {
-            let urls = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
-            return urls.filter( { (title: URL) -> Bool in
-                return title.lastPathComponent.hasSuffix("aac")
-            })
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        } catch {
-            print("获取音频列表失败")
+    
+    ///从UserDefault读取记录索引，本类初始化时调用
+    func recordingList() -> [NSString]? {
+        let temp: [NSString]? = defaults.array(forKey: UserDefaultRecords) as! [NSString]?
+        if let r = temp {
+            return r
+        }else{
+            return [NSString]()
         }
-        return []
+    }
+    
+    ///将最新的音频索引存入UserDefault
+    func saveRecords() {
+        records!.append(latestFilePath!.absoluteString as NSString)
+        defaults.set(records!, forKey: UserDefaultRecords)
+        defaults.synchronize()
     }
 }
 
@@ -107,21 +107,14 @@ extension RecordManager: AVAudioRecorderDelegate{
     
     //录制完成
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder,successfully flag: Bool) {
-
-        let record = Record()
-        record.filePath = recorder.url
-        record.title = recorder.url.lastPathComponent
-        
-        records.append(record)
-        
         self.recorder = nil
-        print("\(record)文件录制完成，准备上传七牛云");
+        saveRecords()
+        print("文件录制完成，准备上传七牛云");
         //上传七牛
     }
     
     //录制出错
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder,error: Error?) {
-        
         if let e = error {
             print("\(e.localizedDescription)")
         }

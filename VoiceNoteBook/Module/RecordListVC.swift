@@ -12,12 +12,12 @@ class RecordListVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var recordingList = [Record]()
+    var recordingList = [NSString]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "音频列表"
-        recordingList = RecordManager.VNRecorder.records
+        recordingList = RecordManager.VNRecorder.records!
         print(recordingList)
     }
 }
@@ -46,7 +46,7 @@ extension RecordListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier : String = "cell"
         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: cellIdentifier)
-        cell.textLabel?.text = recordingList[indexPath.row].title!
+        cell.textLabel?.text = recordingList[indexPath.row].lastPathComponent
         return cell
     }
 }

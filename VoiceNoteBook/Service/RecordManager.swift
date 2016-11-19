@@ -88,7 +88,7 @@ class RecordManager: NSObject{
     ///文件名
     private func fileName() -> String {
         let format = DateFormatter()
-        format.dateFormat="yyyyMMddHHmmss"
+        format.dateFormat="yyyy-MM-dd HH:mm:ss"
         return "\(format.string(from: Date())).aac"
     }
 }

@@ -18,6 +18,8 @@ class VoiceRecordVC: UIViewController {
         self.title = "录音"
         recordBtn.layer.cornerRadius = 50
         playBtn.isHidden = true
+        
+        print(QiniuManager.sharedInstance.accessToken())
     }
 
     @IBAction func pushRecordListVC(_ sender: AnyObject) {

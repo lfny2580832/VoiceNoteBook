@@ -18,8 +18,7 @@ class RecordManager: NSObject{
     ///每次录音完成后赋值，确保player可以播放最近一次的录音
     var latestFilePath: URL!
     ///本地音频列表索引
-    var records: [NSString]?
-    var recordsArray: [URL]?
+    var records: [URL]?
     let defaults = UserDefaults.standard
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     
@@ -34,7 +33,6 @@ class RecordManager: NSObject{
     private override init() {
         super.init()
         records = recordingList()
-        recordsArray = getRecordsArray()
     }
     
     ///开始录制
@@ -60,7 +58,6 @@ class RecordManager: NSObject{
 
     ///初始化recorder
     private func initRecorder() {
-        
         do {
             latestFilePath = audioFilePath()
             recorder = try AVAudioRecorder(url: latestFilePath, settings: recordSettings)
@@ -83,20 +80,10 @@ class RecordManager: NSObject{
         return "\(format.string(from: Date())).aac"
     }
     
-    ///从UserDefault读取记录索引
-    private func recordingList() -> [NSString]? {
-        let temp: [NSString]? = defaults.array(forKey: UserDefaultRecords) as! [NSString]?
-        if let r = temp {
-            return r
-        }else{
-            return [NSString]()
-        }
-    }
-    
-    func getRecordsArray() -> [URL] {
+    func recordingList() -> [URL] {
         do {
             let urls = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
-             return urls.filter( { (name: URL) -> Bool in
+            return urls.filter( { (name: URL) -> Bool in
                 return name.lastPathComponent.hasSuffix(".aac")
             })
             
@@ -104,13 +91,6 @@ class RecordManager: NSObject{
             print(error.localizedDescription)
             return [URL]()
         }
-    }
-    
-    ///将最新的音频索引存入UserDefault
-    fileprivate func saveRecords() {
-        records!.append(latestFilePath!.absoluteString as NSString)
-        defaults.set(records!, forKey: UserDefaultRecords)
-        defaults.synchronize()
     }
 }
 
@@ -120,7 +100,6 @@ extension RecordManager: AVAudioRecorderDelegate{
     //录制完成
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder,successfully flag: Bool) {
         stopRecording()
-        saveRecords()
         print("文件录制完成，准备上传七牛云");
         //上传七牛
     }

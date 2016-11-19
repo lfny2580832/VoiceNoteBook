@@ -12,29 +12,23 @@ class RecordListVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var recordingList = [NSString]()
-    var recordingArray = [URL]()
+    var recordingList = [URL]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "音频列表"
-        recordingArray = RecordManager.VNRecorder.recordsArray!
         recordingList = RecordManager.VNRecorder.records!
-        print(recordingArray)
-        print(recordingList)
     }
 }
 
 extension RecordListVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recordingArray.count
+        return recordingList.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let filePath = URL(string:recordingList[indexPath.row] as String)
-        let filePath = recordingArray[indexPath.row]
-        PlayerManager.VNPlayer.play(filePath)
+        PlayerManager.VNPlayer.play(recordingList[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -51,7 +45,7 @@ extension RecordListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier : String = "cell"
         let cell = RecordListCell(style: UITableViewCellStyle.value1, reuseIdentifier: cellIdentifier)
-        cell.textLabel?.text = recordingArray[indexPath.row].lastPathComponent
+        cell.textLabel?.text = recordingList[indexPath.row].lastPathComponent
         return cell
     }
 }

@@ -17,8 +17,7 @@ class RecordManager: NSObject{
     var recorder: AVAudioRecorder!
     ///每次录音完成后赋值，确保player可以播放最近一次的录音
     var latestFilePath: URL!
-    ///本地音频列表索引
-    var records: [URL]?
+
     let defaults = UserDefaults.standard
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     
@@ -32,7 +31,6 @@ class RecordManager: NSObject{
 
     private override init() {
         super.init()
-        records = recordingList()
     }
     
     ///开始录制
@@ -47,6 +45,20 @@ class RecordManager: NSObject{
     func stopRecording() {
         recorder.stop()
         setSessionStatus(isActive: false)
+    }
+    
+    ///获取本地音频文件路径
+    func recordingList() -> [URL] {
+        do {
+            let urls = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+            return urls.filter( { (name: URL) -> Bool in
+                return name.lastPathComponent.hasSuffix(".aac")
+            })
+            
+        } catch let error as NSError {
+            print(error.localizedDescription)
+            return [URL]()
+        }
     }
     
     ///设置session类型及状态（需与player进行区分）
@@ -76,21 +88,8 @@ class RecordManager: NSObject{
     ///文件名
     private func fileName() -> String {
         let format = DateFormatter()
-        format.dateFormat="yyyy.MM.dd-HH:mm:ss"
+        format.dateFormat="yyyyMMddHHmmss"
         return "\(format.string(from: Date())).aac"
-    }
-    
-    func recordingList() -> [URL] {
-        do {
-            let urls = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
-            return urls.filter( { (name: URL) -> Bool in
-                return name.lastPathComponent.hasSuffix(".aac")
-            })
-            
-        } catch let error as NSError {
-            print(error.localizedDescription)
-            return [URL]()
-        }
     }
 }
 
@@ -100,8 +99,12 @@ extension RecordManager: AVAudioRecorderDelegate{
     //录制完成
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder,successfully flag: Bool) {
         stopRecording()
-        print("文件录制完成，准备上传七牛云");
         //上传七牛
+        let name = latestFilePath!.lastPathComponent
+        let path = (latestFilePath! as NSURL).path
+        DispatchQueue.global().async {
+            QiniuManager.sharedInstance.uploadRecord(name: name,path: path)
+        }
     }
     
     //录制出错

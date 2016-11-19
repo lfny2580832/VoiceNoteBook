@@ -9,6 +9,8 @@
 #ifndef BridgeHeader_h
 #define BridgeHeader_h
 
-
+#import <CommonCrypto/CommonCrypto.h>
+#import <Qiniu/QiniuSDK.h>
+#import <Qiniu/QNUrlSafeBase64.h>
 
 #endif /* BridgeHeader_h */

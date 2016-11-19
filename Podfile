@@ -5,6 +5,6 @@ use_frameworks!
 
 target “VoiceNoteBook” do
 
-pod "Qiniu", "~> 7.1"
+pod "Qiniu"
 
 end

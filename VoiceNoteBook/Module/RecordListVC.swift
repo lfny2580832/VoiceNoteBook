@@ -17,7 +17,7 @@ class RecordListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "音频列表"
-        recordingList = RecordManager.VNRecorder.records!
+        recordingList = RecordManager.VNRecorder.recordingList()
     }
 }
 

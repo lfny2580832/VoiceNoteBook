@@ -10,7 +10,7 @@ import UIKit
 
 class RecordListCell: UITableViewCell {
 
-    @IBOutlet var satusLabel: UILabel!
+    @IBOutlet var stausLabel: UILabel!
     
     var filePath : URL!
     

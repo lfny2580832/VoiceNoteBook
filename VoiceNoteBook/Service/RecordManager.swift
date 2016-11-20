@@ -42,8 +42,11 @@ class RecordManager: NSObject{
     }
     
     ///结束录制
-    func stopRecording() {
+    func stopRecording(save:Bool) {
         recorder.stop()
+        if !save {
+            recorder.deleteRecording()
+        }
         setSessionStatus(isActive: false)
     }
     
@@ -62,7 +65,7 @@ class RecordManager: NSObject{
     }
     
     ///设置session类型及状态（需与player进行区分）
-    private func setSessionStatus(isActive: Bool)  {
+    fileprivate func setSessionStatus(isActive: Bool)  {
         let session:AVAudioSession = AVAudioSession.sharedInstance()
         try! session.setCategory(AVAudioSessionCategoryPlayAndRecord)
         try! session.setActive(isActive)
@@ -75,7 +78,7 @@ class RecordManager: NSObject{
             recorder = try AVAudioRecorder(url: latestFilePath, settings: recordSettings)
             recorder.delegate = self
         } catch let error as NSError {
-            stopRecording()
+            recorder = nil
             print(error.localizedDescription)
         }
     }
@@ -98,7 +101,9 @@ extension RecordManager: AVAudioRecorderDelegate{
     
     //录制完成
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder,successfully flag: Bool) {
-        stopRecording()
+        self.recorder = nil
+        self.setSessionStatus(isActive: false)
+
         //上传七牛
         let name = latestFilePath!.lastPathComponent
         let path = (latestFilePath! as NSURL).path

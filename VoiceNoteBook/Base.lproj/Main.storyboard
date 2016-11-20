@@ -102,7 +102,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="satusLabel" destination="jgi-EL-AS1" id="HuA-mJ-bQb"/>
+                                            <outlet property="stausLabel" destination="jgi-EL-AS1" id="0e2-nM-5il"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

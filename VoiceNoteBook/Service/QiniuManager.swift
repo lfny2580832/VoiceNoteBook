@@ -28,7 +28,7 @@ class QiniuManager: NSObject {
                 if info!.isOK {
                     print("上传成功")
                 } else {
-                    print("Error: \(info?.error!)" )
+                    print("上传失败，或文件不存在（按键时间太短，已将文件删除）")
                 }
             }, option: nil)
     }

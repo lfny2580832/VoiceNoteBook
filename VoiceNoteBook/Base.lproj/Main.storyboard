@@ -25,6 +25,7 @@
                                     <constraint firstAttribute="width" constant="150" id="5zU-PG-JIn"/>
                                     <constraint firstAttribute="height" constant="150" id="YKX-ki-Myi"/>
                                 </constraints>
+                                <state key="normal" image="recordbg.png"/>
                                 <connections>
                                     <action selector="recordBtnDownAction:" destination="4bh-cc-vpR" eventType="touchDown" id="2Ap-mJ-n7L"/>
                                     <action selector="recordBtnUpAction:" destination="4bh-cc-vpR" eventType="touchUpInside" id="CqZ-bP-UKR"/>
@@ -147,4 +148,7 @@
             <point key="canvasLocation" x="-122.40000000000001" y="272.11394302848578"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="recordbg.png" width="512" height="512"/>
+    </resources>
 </document>

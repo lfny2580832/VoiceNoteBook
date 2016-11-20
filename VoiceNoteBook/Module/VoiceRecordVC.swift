@@ -16,12 +16,23 @@ class VoiceRecordVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "录音"
-        recordBtn.setBackgroundImage(UIImage.init(named:"recordbg"), for: .normal)
         playBtn.isHidden = true
         
-        print(QiniuManager.sharedInstance.accessToken())
+        if isFirsLaunch()  {
+            QiniuManager.sharedInstance.downloadRecords()
+        }
     }
-
+    
+    func isFirsLaunch() -> Bool {
+        let launchedBefore = UserDefaults.standard.bool(forKey: "isFirsLaunch")
+        if launchedBefore  {
+            return false
+        } else {
+            UserDefaults.standard.set(true, forKey: "isFirsLaunch")
+            return true
+        }
+    }
+    
     @IBAction func pushRecordListVC(_ sender: AnyObject) {
         let listVC = RecordListVC()
         self.navigationController?.pushViewController(listVC, animated: true)

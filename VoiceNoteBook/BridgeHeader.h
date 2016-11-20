@@ -12,5 +12,7 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import <Qiniu/QiniuSDK.h>
 #import <Qiniu/QNUrlSafeBase64.h>
+#import <AFNetworking/AFNetworking.h>
+
 
 #endif /* BridgeHeader_h */

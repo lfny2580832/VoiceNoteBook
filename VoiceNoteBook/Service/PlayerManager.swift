@@ -37,7 +37,7 @@ class PlayerManager: NSObject{
         do {
             player = try AVAudioPlayer.init(contentsOf: url)
             player.prepareToPlay()
-            player.volume = 10.0
+            player.volume = 6.0
             player.delegate = self
             player.play()
         } catch let error as NSError {

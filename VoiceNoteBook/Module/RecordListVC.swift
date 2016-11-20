@@ -20,14 +20,16 @@ class RecordListVC: UIViewController {
         self.title = "音频列表"
         recordingList = RecordManager.VNRecorder.recordingList()
         modelList = recordingModelList(list: recordingList)
-        print(modelList)
     }
     
     func recordingModelList(list:[URL]!) -> [RecordModel] {
+        var i : Int = 0
         return list.map { (url) -> RecordModel in
             let model = RecordModel()
             model.path = url
             model.playType = .stop
+            model.index = i
+            i = i + 1
             return model
         }
     }
@@ -36,7 +38,7 @@ class RecordListVC: UIViewController {
 extension RecordListVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recordingList.count
+        return modelList.count
     }
 }
 
@@ -48,9 +50,32 @@ extension RecordListVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier : String = "cell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! RecordListCell
-        cell.textLabel?.text = recordingList[indexPath.row].lastPathComponent
-        cell.filePath = recordingList[indexPath.row].absoluteURL
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? RecordListCell
+        cell?.model = modelList[indexPath.row]
+        cell?.delegate = self
+        return cell!
+    }
+
+}
+
+extension RecordListVC: RecordListCellDelegate {
+    func playWithModel(record:RecordModel) {
+        PlayerManager.VNPlayer.play(record: record, aDelegate: self)
+    }
+}
+
+extension RecordListVC: PlayerManagerProtocal{
+    func playerManagerStopWithRecord(record: RecordModel) {
+        self.modelList.remove(at: record.index)
+        self.modelList.insert(record, at: record.index)
+        self.tableView.reloadRows(at: [IndexPath.init(row: record.index, section: 0)], with: .none)
+//        print("----完成\(record.index!)")
+    }
+    
+    func playerManagerStartWithRecord(record: RecordModel) {
+        self.modelList.remove(at: record.index)
+        self.modelList.insert(record, at: record.index)
+        self.tableView.reloadRows(at: [IndexPath.init(row: record.index, section: 0)], with: .none)
+//        print("----开始\(record.index!)")
     }
 }

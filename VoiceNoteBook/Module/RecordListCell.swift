@@ -8,36 +8,34 @@
 
 import UIKit
 
-protocol PlayerManagerProtocal {
-    
-    func playerManagerStart()
-    func playerManagerStop()
+protocol RecordListCellDelegate{
+    func playWithModel(record:RecordModel)
 }
-
 
 class RecordListCell: UITableViewCell {
 
     @IBOutlet var playBtn: UIButton!
     
-    var filePath : URL!
+    var delegate : RecordListCellDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
     }
-
+    
     @IBAction func playBtnClicked(_ sender: AnyObject) {
-        PlayerManager.VNPlayer.play(filePath, aDelegate: self as PlayerManagerProtocal)
+        self.delegate?.playWithModel(record: model)
+    }
+    
+    var model : RecordModel! {
+        didSet{
+            self.textLabel?.text = model.path.lastPathComponent
+            if(model.playType == .stop) {
+                playBtn.setImage(UIImage.init(named: "start"), for: .normal)
+            }else{
+                playBtn.setImage(UIImage.init(named: "pause"), for: .normal)
+            }
+        }
     }
 }
 
-extension RecordListCell: PlayerManagerProtocal{
-    
-    func playerManagerStart() {
-        self.playBtn.setImage(UIImage.init(named: "pause"), for: .normal)
-    }
-    
-    func playerManagerStop() {
-        self.playBtn.setImage(UIImage.init(named: "start"), for: .normal)
-    }
-}

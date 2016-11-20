@@ -8,15 +8,23 @@
 
 import AVFoundation
 
+@objc protocol PlayerManagerProtocal {
+    
+    @objc optional func playerManagerStart()
+    @objc optional func playerManagerStop()
+    @objc optional func playerManagerStartWithRecord(record:RecordModel)
+    @objc optional func playerManagerStopWithRecord(record:RecordModel)
+}
+
 class PlayerManager: NSObject{
     
     static let VNPlayer = PlayerManager()
 
-    var latestDuration : Double = 0.0
     let session:AVAudioSession = AVAudioSession.sharedInstance()
     var player:AVAudioPlayer!
     var aDelegate : PlayerManagerProtocal?
 
+    var recordModel : RecordModel?
     
     private override init() {
         super.init()
@@ -30,7 +38,7 @@ class PlayerManager: NSObject{
     }
     
     ///播放指定路径的音频
-    func play(_ url:URL, aDelegate:PlayerManagerProtocal)  {
+    func play( url:URL, aDelegate:PlayerManagerProtocal)  {
         stopPlaying()
         
         self.aDelegate = aDelegate
@@ -40,20 +48,49 @@ class PlayerManager: NSObject{
             player.prepareToPlay()
             player.volume = 6.0
             player.delegate = self
-            latestDuration = player.duration
             player.play()
-            self.aDelegate?.playerManagerStart()
+            self.aDelegate?.playerManagerStart!()
         } catch let error as NSError {
             stopPlaying()
             print(error.localizedDescription)
         }
     }
     
+    ///播放指定Model的音频
+    func play( record:RecordModel! ,aDelegate:PlayerManagerProtocal)  {
+        stopPlaying()
+
+        self.aDelegate = aDelegate
+        setSessionStatus(isActive: true)
+        do {
+            player = try AVAudioPlayer.init(contentsOf: record.path)
+            record.playType = .playing
+            self.recordModel = record
+            self.aDelegate?.playerManagerStartWithRecord!(record: record)
+        } catch let error as NSError {
+            stopPlaying()
+            print(error.localizedDescription)
+            return
+        }
+        player.prepareToPlay()
+        player.volume = 6.0
+        player.delegate = self
+        player.play()
+        
+    }
+    
     ///停止当前正在播放的音频
     func stopPlaying() {
         if (player != nil) {
             player.stop()
-            self.aDelegate?.playerManagerStop()
+            player = nil
+            if self.recordModel != nil {
+                self.recordModel?.playType = .stop
+                self.aDelegate?.playerManagerStopWithRecord!(record: self.recordModel!)
+                self.recordModel = nil
+            }else {
+                self.aDelegate?.playerManagerStop!()
+            }
             setSessionStatus(isActive: false)
         }
     }
@@ -62,7 +99,8 @@ class PlayerManager: NSObject{
 
 extension PlayerManager : AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        self.aDelegate?.playerManagerStop()
+
+        stopPlaying()
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {

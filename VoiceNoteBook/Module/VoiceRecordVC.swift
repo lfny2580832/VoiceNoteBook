@@ -73,7 +73,7 @@ class VoiceRecordVC: UIViewController {
     
     @IBAction func playBtnTap(_ sender: AnyObject) {
         
-        PlayerManager.VNPlayer.play(RecordManager.VNRecorder.latestFilePath, aDelegate: self as PlayerManagerProtocal)
+        PlayerManager.VNPlayer.play(url:RecordManager.VNRecorder.latestFilePath, aDelegate: self as PlayerManagerProtocal)
     }
     
     ///点击录音按钮动画

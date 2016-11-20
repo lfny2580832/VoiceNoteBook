@@ -17,10 +17,12 @@ class RecordModel: NSObject {
     
     var path: URL!
     
-    var playType: PlayType?
+    var playType: PlayType!
+    
+    var index: Int!
     
     override var description: String {
-        return "\(path!):\(playType!)"
+        return "---\(path!)---\(playType!)---\(index!)"
     }
 }
 

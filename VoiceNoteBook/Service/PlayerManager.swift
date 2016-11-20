@@ -12,9 +12,12 @@ class PlayerManager: NSObject{
     
     static let VNPlayer = PlayerManager()
 
+    var latestDuration : Double = 0.0
     let session:AVAudioSession = AVAudioSession.sharedInstance()
     var player:AVAudioPlayer!
+    var aDelegate : PlayerManagerProtocal?
 
+    
     private override init() {
         super.init()
     }
@@ -26,30 +29,31 @@ class PlayerManager: NSObject{
         try! session.setActive(isActive)
     }
     
-    ///播放最近录制的音频
-    func playLatest()  {
-        play(RecordManager.VNRecorder.latestFilePath!)
-    }
-    
     ///播放指定路径的音频
-    func play(_ url:URL)  {
+    func play(_ url:URL, aDelegate:PlayerManagerProtocal)  {
+        stopPlaying()
+        
+        self.aDelegate = aDelegate
         setSessionStatus(isActive: true)
         do {
             player = try AVAudioPlayer.init(contentsOf: url)
             player.prepareToPlay()
             player.volume = 6.0
             player.delegate = self
+            latestDuration = player.duration
             player.play()
+            self.aDelegate?.playerManagerStart()
         } catch let error as NSError {
             stopPlaying()
             print(error.localizedDescription)
         }
     }
     
-    ///停止当前正在播放的音频，如果有的话
+    ///停止当前正在播放的音频
     func stopPlaying() {
         if (player != nil) {
             player.stop()
+            self.aDelegate?.playerManagerStop()
             setSessionStatus(isActive: false)
         }
     }
@@ -58,7 +62,7 @@ class PlayerManager: NSObject{
 
 extension PlayerManager : AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        stopPlaying()
+        self.aDelegate?.playerManagerStop()
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {

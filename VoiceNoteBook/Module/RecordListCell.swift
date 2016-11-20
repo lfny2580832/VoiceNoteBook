@@ -8,28 +8,42 @@
 
 import UIKit
 
+protocol PlayerManagerProtocal {
+    
+    func playerManagerStart()
+    
+    func playerManagerStop()
+    
+}
+
+
 class RecordListCell: UITableViewCell {
 
-    @IBOutlet var stausLabel: UILabel!
+    @IBOutlet var playBtn: UIButton!
     
     var filePath : URL!
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-    
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+
+        
+    }
+
+    @IBAction func playBtnClicked(_ sender: AnyObject) {
+        
+        PlayerManager.VNPlayer.play(filePath, aDelegate: self as PlayerManagerProtocal)
+        
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        if(selected == false){
+}
 
-        }else{
-
-        }
+extension RecordListCell: PlayerManagerProtocal{
+    
+    func playerManagerStart() {
+        self.playBtn.setImage(UIImage.init(named: "pause"), for: .normal)
     }
-
+    
+    func playerManagerStop() {
+        self.playBtn.setImage(UIImage.init(named: "start"), for: .normal)
+    }
 }

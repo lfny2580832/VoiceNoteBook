@@ -31,12 +31,13 @@
                                     <action selector="recordBtnUpAction:" destination="4bh-cc-vpR" eventType="touchUpInside" id="CqZ-bP-UKR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brC-lg-Xpb">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brC-lg-Xpb">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="6xS-yG-0HT"/>
-                                    <constraint firstAttribute="height" constant="30" id="9PD-u0-kUc"/>
+                                    <constraint firstAttribute="width" constant="70" id="6xS-yG-0HT"/>
+                                    <constraint firstAttribute="height" constant="70" id="9PD-u0-kUc"/>
                                 </constraints>
-                                <state key="normal" title="播放"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="playBtnTap:" destination="4bh-cc-vpR" eventType="touchUpInside" id="oqH-Ic-xTF"/>
                                 </connections>
@@ -79,30 +80,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="50" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Ymf-gu-Mv8">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Ymf-gu-Mv8">
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="50" id="AKk-5g-Fhc" customClass="RecordListCell" customModule="VoiceNoteBook" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="119.5" width="375" height="50"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="60" id="AKk-5g-Fhc" customClass="RecordListCell" customModule="VoiceNoteBook" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="120" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AKk-5g-Fhc" id="63d-vc-ydK">
-                                            <frame key="frameInset" width="375" height="49.5"/>
+                                            <frame key="frameInset" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgi-EL-AS1">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UnF-21-kQ8">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="TcR-YB-j5l"/>
+                                                    </constraints>
+                                                    <state key="normal" image="start.png"/>
+                                                    <connections>
+                                                        <action selector="playBtnClicked:" destination="AKk-5g-Fhc" eventType="touchUpInside" id="IjT-rL-bYv"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="jgi-EL-AS1" firstAttribute="top" secondItem="63d-vc-ydK" secondAttribute="topMargin" id="99u-rp-s22"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="jgi-EL-AS1" secondAttribute="bottom" id="cOo-vr-1iS"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="jgi-EL-AS1" secondAttribute="trailing" constant="20" id="yRa-Bb-xOk"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="UnF-21-kQ8" secondAttribute="bottom" id="6Cq-bd-RPx"/>
+                                                <constraint firstItem="UnF-21-kQ8" firstAttribute="top" secondItem="63d-vc-ydK" secondAttribute="topMargin" id="rmG-Dp-Q1G"/>
+                                                <constraint firstItem="UnF-21-kQ8" firstAttribute="trailing" secondItem="63d-vc-ydK" secondAttribute="trailingMargin" id="uxJ-ug-khT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="stausLabel" destination="jgi-EL-AS1" id="0e2-nM-5il"/>
+                                            <outlet property="playBtn" destination="UnF-21-kQ8" id="nei-i3-vJA"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -150,5 +155,6 @@
     </scenes>
     <resources>
         <image name="recordbg.png" width="512" height="512"/>
+        <image name="start.png" width="512" height="512"/>
     </resources>
 </document>

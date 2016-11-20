@@ -26,14 +26,6 @@ extension RecordListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recordingList.count
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        PlayerManager.VNPlayer.play(recordingList[indexPath.row])
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        PlayerManager.VNPlayer.stopPlaying()
-    }
 }
 
 extension RecordListVC: UITableViewDataSource {
@@ -44,8 +36,9 @@ extension RecordListVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier : String = "cell"
-        let cell = RecordListCell(style: UITableViewCellStyle.value1, reuseIdentifier: cellIdentifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! RecordListCell
         cell.textLabel?.text = recordingList[indexPath.row].lastPathComponent
+        cell.filePath = recordingList[indexPath.row].absoluteURL
         return cell
     }
 }

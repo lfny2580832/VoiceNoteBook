@@ -16,7 +16,6 @@ class VoiceRecordVC: UIViewController {
     var time : Int = 0
     var timer = CADisplayLink(target: self, selector: #selector(counting))
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "录音"
@@ -44,10 +43,10 @@ class VoiceRecordVC: UIViewController {
 
     @IBAction func recordBtnDownAction(_ sender: AnyObject) {
         print("开始录制");
+        playBtn.isHidden = true
         
         startCounting()
         recordBtnTapAnimation()
-        playBtn.isHidden = true
         PlayerManager.VNPlayer.stopPlaying()
         RecordManager.VNRecorder.startRecording()
     }
@@ -55,6 +54,7 @@ class VoiceRecordVC: UIViewController {
     @IBAction func recordBtnUpAction(_ sender: AnyObject) {
         print("停止录制")
         playBtn.isHidden = false
+        playBtn.setImage(UIImage.init(named: "start"), for: .normal)
 
         if(time < 30) {
             stopCounting()
@@ -68,8 +68,8 @@ class VoiceRecordVC: UIViewController {
     }
     
     @IBAction func playBtnTap(_ sender: AnyObject) {
-        print("播放最近录制成功的音频")
-        PlayerManager.VNPlayer.playLatest()
+        
+        PlayerManager.VNPlayer.play(RecordManager.VNRecorder.latestFilePath, aDelegate: self as PlayerManagerProtocal)
     }
     
     ///点击录音按钮动画
@@ -106,5 +106,15 @@ class VoiceRecordVC: UIViewController {
         let alert = UIAlertController(title: "按键时间太短",message: nil,preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "确认", style: .default, handler: {action in }))
         self.present(alert, animated:true, completion:nil)
+    }
+}
+
+extension VoiceRecordVC:PlayerManagerProtocal{
+    func playerManagerStart() {
+        self.playBtn.setImage(UIImage.init(named: "pause"), for: .normal)
+    }
+    
+    func playerManagerStop() {
+        self.playBtn.setImage(UIImage.init(named: "start"), for: .normal)
     }
 }

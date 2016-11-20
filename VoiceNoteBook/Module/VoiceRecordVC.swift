@@ -24,6 +24,10 @@ class VoiceRecordVC: UIViewController {
         if isFirsLaunch()  {
             QiniuManager.sharedInstance.downloadRecords()
         }
+        
+        //提前触发权限，以免第一次会录一小段没用的声音
+        RecordManager.VNRecorder.startRecording()
+        RecordManager.VNRecorder.stopRecording(save: false)
     }
     
     func isFirsLaunch() -> Bool {

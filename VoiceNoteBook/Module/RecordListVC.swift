@@ -13,11 +13,23 @@ class RecordListVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var recordingList = [URL]()
+    var modelList = [RecordModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "音频列表"
         recordingList = RecordManager.VNRecorder.recordingList()
+        modelList = recordingModelList(list: recordingList)
+        print(modelList)
+    }
+    
+    func recordingModelList(list:[URL]!) -> [RecordModel] {
+        return list.map { (url) -> RecordModel in
+            let model = RecordModel()
+            model.path = url
+            model.playType = .stop
+            return model
+        }
     }
 }
 

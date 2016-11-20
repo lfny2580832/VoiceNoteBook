@@ -11,9 +11,7 @@ import UIKit
 protocol PlayerManagerProtocal {
     
     func playerManagerStart()
-    
     func playerManagerStop()
-    
 }
 
 
@@ -25,16 +23,12 @@ class RecordListCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
         
     }
 
     @IBAction func playBtnClicked(_ sender: AnyObject) {
-        
         PlayerManager.VNPlayer.play(filePath, aDelegate: self as PlayerManagerProtocal)
-        
     }
-    
 }
 
 extension RecordListCell: PlayerManagerProtocal{

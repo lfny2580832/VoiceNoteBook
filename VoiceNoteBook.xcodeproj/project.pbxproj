@@ -12,6 +12,7 @@
 		4A27ED7A1DE1AA95003A92F4 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A27ED781DE1AA95003A92F4 /* pause.png */; };
 		4A27ED7B1DE1AA95003A92F4 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A27ED791DE1AA95003A92F4 /* start.png */; };
 		4A27ED7E1DE1AD6C003A92F4 /* Macro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A27ED7D1DE1AD6C003A92F4 /* Macro.swift */; };
+		4A27ED831DE1C98B003A92F4 /* RecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A27ED821DE1C98B003A92F4 /* RecordModel.swift */; };
 		4A364D571DE15BB200EBDCDB /* recordbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A364D561DE15BB200EBDCDB /* recordbg.png */; };
 		4AF552921DDE9A5F00720C94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF552911DDE9A5F00720C94 /* AppDelegate.swift */; };
 		4AF552971DDE9A5F00720C94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AF552951DDE9A5F00720C94 /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 		4A27ED781DE1AA95003A92F4 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		4A27ED791DE1AA95003A92F4 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
 		4A27ED7D1DE1AD6C003A92F4 /* Macro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Macro.swift; sourceTree = "<group>"; };
+		4A27ED821DE1C98B003A92F4 /* RecordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordModel.swift; sourceTree = "<group>"; };
 		4A364D561DE15BB200EBDCDB /* recordbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordbg.png; sourceTree = "<group>"; };
 		4AF5528E1DDE9A5F00720C94 /* VoiceNoteBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceNoteBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AF552911DDE9A5F00720C94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +84,14 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		4A27ED811DE1C960003A92F4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4A27ED821DE1C98B003A92F4 /* RecordModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		4AF552851DDE9A5F00720C94 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +116,7 @@
 				4AF552911DDE9A5F00720C94 /* AppDelegate.swift */,
 				4A07499D1DE0833700AAE84D /* BridgeHeader.h */,
 				4A27ED7C1DE1AD6C003A92F4 /* Util */,
+				4A27ED811DE1C960003A92F4 /* Model */,
 				4AF552A41DDEB01000720C94 /* Service */,
 				4AF552A31DDEB00900720C94 /* Module */,
 				4A0749A01DE1524800AAE84D /* Images */,
@@ -286,6 +297,7 @@
 			files = (
 				4A27ED7E1DE1AD6C003A92F4 /* Macro.swift in Sources */,
 				4AF552AA1DDEB16600720C94 /* RecordListVC.swift in Sources */,
+				4A27ED831DE1C98B003A92F4 /* RecordModel.swift in Sources */,
 				4AF552B21DDEB1FD00720C94 /* RecordListCell.swift in Sources */,
 				4AF552921DDE9A5F00720C94 /* AppDelegate.swift in Sources */,
 				4AF552A81DDEB06500720C94 /* VoiceRecordVC.swift in Sources */,

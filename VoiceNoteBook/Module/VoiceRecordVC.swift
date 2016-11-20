@@ -63,6 +63,7 @@ class VoiceRecordVC: UIViewController {
         if(time < 30) {
             stopCounting()
             alert()
+            playBtn.isHidden = true
             RecordManager.VNRecorder.stopRecording(save: false)
             return
         }

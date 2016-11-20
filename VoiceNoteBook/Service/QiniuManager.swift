@@ -14,7 +14,8 @@ let kQiniuBucket = "voicenotebook"
 let kQiniuAccessKey = "trKd-rnSvKJpjd7fiXkLEvk5KvHKbCGvKGzCGYJX"
 let kQiniuSecretKey = "fNbRIqm4ixYH2AcvOG_1itmcEvUc1ZgL9l6XOgWs"
 
-let kQiniuDownloadUrl = "ogwdnxosu.bkt.clouddn.com"
+let kBucketUrl = "ogwdnxosu.bkt.clouddn.com"
+let kQiniuListUrl = "http://rsf.qbox.me/list?bucket=voicenotebook"
 
 class QiniuManager: NSObject {
 
@@ -44,6 +45,7 @@ class QiniuManager: NSObject {
         return kQiniuAccessKey + ":" + encodedSign! + ":" + encodedPutPolicy!
     }
     
+    ///加密
     private func hmacsha1(str: String, secretKey: String) -> NSData {
         let cKey  = secretKey.cString(using: String.Encoding.ascii)
         let cData = str.cString(using: String.Encoding.ascii)
@@ -54,8 +56,8 @@ class QiniuManager: NSObject {
     }
     
     ///批量请求用到的accessToken   http://docs.qiniu.com/api/v6/rs.html#batch
-    func accessToken() -> String {
-        let path = "http://rsf.qbox.me/list?bucket=voicenotebook\n"
+     func accessToken() -> String {
+        let path = "/list?bucket=voicenotebook\n"
         let signData = hmacsha1(str: path, secretKey: kQiniuSecretKey)
         let encodeSignData = QNUrlSafeBase64.encode(signData as Data!)
         let accessToken = kQiniuAccessKey + ":" + encodeSignData!

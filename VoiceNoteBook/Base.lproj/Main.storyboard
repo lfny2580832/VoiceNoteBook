@@ -19,11 +19,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IrN-fK-Ckt">
-                                <color key="backgroundColor" red="0.0" green="0.83165450507614214" blue="0.014684368765762599" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IrN-fK-Ckt">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="5zU-PG-JIn"/>
-                                    <constraint firstAttribute="height" constant="100" id="YKX-ki-Myi"/>
+                                    <constraint firstAttribute="width" constant="150" id="5zU-PG-JIn"/>
+                                    <constraint firstAttribute="height" constant="150" id="YKX-ki-Myi"/>
                                 </constraints>
                                 <connections>
                                     <action selector="recordBtnDownAction:" destination="4bh-cc-vpR" eventType="touchDown" id="2Ap-mJ-n7L"/>
@@ -82,10 +82,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="50" id="AKk-5g-Fhc" customClass="RecordListCell" customModule="VoiceNoteBook" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="120" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="119.5" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AKk-5g-Fhc" id="63d-vc-ydK">
-                                            <frame key="frameInset" width="375" height="49"/>
+                                            <frame key="frameInset" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgi-EL-AS1">

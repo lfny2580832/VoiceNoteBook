@@ -21,9 +21,8 @@ class PlayerManager: NSObject{
     static let VNPlayer = PlayerManager()
 
     let session:AVAudioSession = AVAudioSession.sharedInstance()
-    var player:AVAudioPlayer!
+    var player:AVAudioPlayer?
     var aDelegate : PlayerManagerProtocal?
-
     var recordModel : RecordModel?
     
     private override init() {
@@ -45,44 +44,44 @@ class PlayerManager: NSObject{
         setSessionStatus(isActive: true)
         do {
             player = try AVAudioPlayer.init(contentsOf: url)
-            player.prepareToPlay()
-            player.volume = 6.0
-            player.delegate = self
-            player.play()
+            player?.prepareToPlay()
+            player?.volume = 6.0
+            player?.delegate = self
+            player?.play()
             self.aDelegate?.playerManagerStart!()
-        } catch let error as NSError {
+        } catch let error {
             stopPlaying()
             print(error.localizedDescription)
         }
     }
     
     ///播放指定Model的音频
-    func play( record:RecordModel! ,aDelegate:PlayerManagerProtocal)  {
+    func play( record:RecordModel ,aDelegate:PlayerManagerProtocal)  {
         stopPlaying()
 
         self.aDelegate = aDelegate
         setSessionStatus(isActive: true)
         do {
-            player = try AVAudioPlayer.init(contentsOf: record.path)
+            player = try AVAudioPlayer.init(contentsOf: (record.path)!)
             record.playType = .playing
             self.recordModel = record
             self.aDelegate?.playerManagerStartWithRecord!(record: record)
-        } catch let error as NSError {
+        } catch let error {
             stopPlaying()
             print(error.localizedDescription)
             return
         }
-        player.prepareToPlay()
-        player.volume = 6.0
-        player.delegate = self
-        player.play()
+        player?.prepareToPlay()
+        player?.volume = 6.0
+        player?.delegate = self
+        player?.play()
         
     }
     
     ///停止当前正在播放的音频
     func stopPlaying() {
         if (player != nil) {
-            player.stop()
+            player?.stop()
             player = nil
             if self.recordModel != nil {
                 self.recordModel?.playType = .stop

@@ -14,11 +14,13 @@ class VoiceRecordVC: UIViewController {
     @IBOutlet var playBtn: UIButton!
     
     var time : Int = 0
-    var timer = CADisplayLink(target: self, selector: #selector(counting))
+    var timer : CADisplayLink?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "录音"
+        self.time = 0
         playBtn.isHidden = true
 
         if isFirsLaunch()  {
@@ -73,8 +75,9 @@ class VoiceRecordVC: UIViewController {
     }
     
     @IBAction func playBtnTap(_ sender: AnyObject) {
-        
-        PlayerManager.VNPlayer.play(url:RecordManager.VNRecorder.latestFilePath, aDelegate: self as PlayerManagerProtocal)
+        if let filePath = RecordManager.VNRecorder.latestFilePath{
+            PlayerManager.VNPlayer.play(url:filePath, aDelegate: self as PlayerManagerProtocal)
+        }
     }
     
     ///点击录音按钮动画
@@ -93,8 +96,8 @@ class VoiceRecordVC: UIViewController {
     ///开始计时
     func startCounting()  {
         timer = CADisplayLink(target: self, selector: #selector(counting))
-        timer.preferredFramesPerSecond = 60
-        timer.add(to: RunLoop.current, forMode: .commonModes)
+        timer?.preferredFramesPerSecond = 60
+        timer?.add(to: RunLoop.current, forMode: .commonModes)
     }
     
     ///计时
@@ -104,7 +107,7 @@ class VoiceRecordVC: UIViewController {
     
     func stopCounting()  {
         time = 0
-        timer.invalidate()
+        timer?.invalidate()
     }
 
     func alert() {

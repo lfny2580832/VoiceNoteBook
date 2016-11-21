@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol RecordListCellDelegate{
+@objc protocol RecordListCellDelegate{
     func playWithModel(record:RecordModel)
 }
 
@@ -16,7 +16,7 @@ class RecordListCell: UITableViewCell {
 
     @IBOutlet var playBtn: UIButton!
     
-    var delegate : RecordListCellDelegate?
+    weak var delegate : RecordListCellDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -24,13 +24,15 @@ class RecordListCell: UITableViewCell {
     }
     
     @IBAction func playBtnClicked(_ sender: AnyObject) {
-        self.delegate?.playWithModel(record: model)
+        if let model = self.recordModel {
+            self.delegate?.playWithModel(record: model)
+        }
     }
     
-    var model : RecordModel! {
+    var recordModel : RecordModel? {
         didSet{
-            self.textLabel?.text = model.path.lastPathComponent
-            if(model.playType == .stop) {
+            self.textLabel?.text = recordModel?.path.lastPathComponent
+            if(recordModel?.playType == .stop) {
                 playBtn.setImage(UIImage.init(named: "start"), for: .normal)
             }else{
                 playBtn.setImage(UIImage.init(named: "pause"), for: .normal)

@@ -51,7 +51,7 @@ extension RecordListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier : String = "cell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? RecordListCell
-        cell?.model = modelList[indexPath.row]
+        cell?.recordModel = modelList[indexPath.row]
         cell?.delegate = self
         return cell!
     }

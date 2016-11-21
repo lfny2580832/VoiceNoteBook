@@ -14,19 +14,19 @@ class RecordManager: NSObject{
 
     static let VNRecorder = RecordManager()
     
-    var recorder: AVAudioRecorder!
+    var recorder: AVAudioRecorder?
     ///每次录音完成后赋值，确保player可以播放最近一次的录音
-    var latestFilePath: URL!
+    var latestFilePath: URL?
 
     let defaults = UserDefaults.standard
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     
-    let recordSettings:[String : AnyObject] = [
+    let recordSettings:[String : Any] = [
         AVFormatIDKey:             NSNumber(value: kAudioFormatMPEG4AAC),
-        AVEncoderAudioQualityKey : NSNumber(value:AVAudioQuality.max.rawValue),
-        AVEncoderBitRateKey :      NSNumber(value:320000),
-        AVNumberOfChannelsKey:     NSNumber(value:2),
-        AVSampleRateKey :          NSNumber(value:44100.0)
+        AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
+        AVEncoderBitRateKey :      320000,
+        AVNumberOfChannelsKey:     2,
+        AVSampleRateKey :          44100.0
     ]
 
     private override init() {
@@ -37,15 +37,15 @@ class RecordManager: NSObject{
     func startRecording()  {
         setSessionStatus(isActive: true)
         initRecorder()
-        recorder.prepareToRecord()
-        recorder.record()
+        recorder?.prepareToRecord()
+        recorder?.record()
     }
     
     ///结束录制
     func stopRecording(save:Bool) {
-        recorder.stop()
+        recorder?.stop()
         if !save {
-            recorder.deleteRecording()
+            recorder?.deleteRecording()
         }
         setSessionStatus(isActive: false)
     }
@@ -58,7 +58,7 @@ class RecordManager: NSObject{
                 return name.lastPathComponent.hasSuffix(".aac")
             })
             
-        } catch let error as NSError {
+        } catch let error {
             print(error.localizedDescription)
             return [URL]()
         }
@@ -73,13 +73,15 @@ class RecordManager: NSObject{
 
     ///初始化recorder
     private func initRecorder() {
-        do {
-            latestFilePath = audioFilePath()
-            recorder = try AVAudioRecorder(url: latestFilePath, settings: recordSettings)
-            recorder.delegate = self
-        } catch let error as NSError {
-            recorder = nil
-            print(error.localizedDescription)
+        latestFilePath = audioFilePath()
+        if let path = latestFilePath{
+            do {
+                recorder = try AVAudioRecorder(url: path, settings: recordSettings)
+                recorder?.delegate = self
+            } catch let error {
+                recorder = nil
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -105,10 +107,11 @@ extension RecordManager: AVAudioRecorderDelegate{
         self.setSessionStatus(isActive: false)
 
         //上传七牛
-        let name = latestFilePath!.lastPathComponent
-        let path = (latestFilePath! as NSURL).path
-        DispatchQueue.global().async {
-            QiniuManager.sharedInstance.uploadRecord(name: name,path: path)
+        if let filePath = self.latestFilePath{
+            let name = filePath.lastPathComponent
+            DispatchQueue.global().async {
+                QiniuManager.sharedInstance.uploadRecord(name: name,path: filePath)
+            }
         }
     }
     

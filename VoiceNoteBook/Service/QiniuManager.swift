@@ -23,8 +23,10 @@ class QiniuManager: NSObject {
     var uploader: QNUploadManager = QNUploadManager()
     
     ///上传音频文件
-    func uploadRecord(name:String!,path:String!) {
-        uploader.putFile(path, key: name, token: qiniuToken(fileName: name), complete: { (info: QNResponseInfo?, key: String?, resp: [AnyHashable : Any]?) -> Void in
+    func uploadRecord(name:String,path:URL) {
+
+        let filePath = path.path
+        uploader.putFile(filePath, key: name, token: qiniuToken(fileName: name), complete: { (info: QNResponseInfo?, key: String?, resp: [AnyHashable : Any]?) -> Void in
                 if info!.isOK {
                     print("上传成功")
                 } else {
@@ -54,12 +56,13 @@ extension QiniuManager {
             let session = URLSession.shared
             let downloadTask = session.downloadTask(with: request,completionHandler: { (location:URL?, response:URLResponse?,error:Error?)
                 -> Void in
-                let locationPath = location!.path
-                let documnets:String = NSHomeDirectory() + "/Documents/" + path
-                do {
-                    try FileManager.default.moveItem(atPath: locationPath, toPath: documnets)
-                } catch let error as NSError{
-                    print(error.localizedDescription)
+                if let locationPath = location?.path {
+                    let documnets:String = NSHomeDirectory() + "/Documents/" + path
+                    do {
+                        try FileManager.default.moveItem(atPath: locationPath, toPath: documnets)
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
                 }
             })
             downloadTask.resume()
@@ -131,7 +134,7 @@ extension QiniuManager {
 extension NSDictionary {
     func JSONString() -> String! {
         let data = try! JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
-        let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+        let string = String(data: data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
         return string as String!
     }
 }

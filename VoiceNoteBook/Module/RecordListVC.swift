@@ -66,16 +66,16 @@ extension RecordListVC: RecordListCellDelegate {
 
 extension RecordListVC: PlayerManagerProtocal{
     func playerManagerStopWithRecord(record: RecordModel) {
-        self.modelList.remove(at: record.index)
-        self.modelList.insert(record, at: record.index)
-        self.tableView.reloadRows(at: [IndexPath.init(row: record.index, section: 0)], with: .none)
-//        print("----完成\(record.index!)")
+        reloadModel(record: record)
     }
     
     func playerManagerStartWithRecord(record: RecordModel) {
+        reloadModel(record: record)
+    }
+    
+    func reloadModel(record:RecordModel) {
         self.modelList.remove(at: record.index)
         self.modelList.insert(record, at: record.index)
         self.tableView.reloadRows(at: [IndexPath.init(row: record.index, section: 0)], with: .none)
-//        print("----开始\(record.index!)")
     }
 }

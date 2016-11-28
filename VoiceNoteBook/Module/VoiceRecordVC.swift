@@ -12,6 +12,7 @@ class VoiceRecordVC: UIViewController {
 
     @IBOutlet weak var recordBtn: UIButton!
     @IBOutlet var playBtn: UIButton!
+    @IBOutlet weak var spectrumView: VoiceSpectrumView!
     
     var time : Int = 0
     var timer : CADisplayLink?
@@ -28,8 +29,15 @@ class VoiceRecordVC: UIViewController {
         }
         
         //提前触发权限，以免第一次会录一小段没用的声音
-        RecordManager.VNRecorder.startRecording()
-        RecordManager.VNRecorder.stopRecording(save: false)
+        let recorder = RecordManager.VNRecorder
+        recorder.startRecording()
+        recorder.stopRecording(save: false)
+        
+        weak var weakSelf = self
+        
+        spectrumView.soundPower {
+            weakSelf?.spectrumView.setLevel(recorder.recorderPower())
+        }
     }
     
     func isFirsLaunch() -> Bool {
@@ -67,6 +75,7 @@ class VoiceRecordVC: UIViewController {
             alert()
             playBtn.isHidden = true
             RecordManager.VNRecorder.stopRecording(save: false)
+            time = 0
             return
         }
         stopCounting()

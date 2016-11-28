@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gLM-MX-HoU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gLM-MX-HoU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -42,13 +42,22 @@
                                     <action selector="playBtnTap:" destination="4bh-cc-vpR" eventType="touchUpInside" id="oqH-Ic-xTF"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZR-th-O6Q" customClass="VoiceSpectrumView" customModule="VoiceNoteBook" customModuleProvider="target">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="mLZ-d1-GaI"/>
+                                    <constraint firstAttribute="height" constant="60" id="vod-Xi-kpf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="brC-lg-Xpb" firstAttribute="centerX" secondItem="Zlx-dp-aet" secondAttribute="centerX" id="JJT-nG-nQN"/>
                             <constraint firstItem="IrN-fK-Ckt" firstAttribute="centerX" secondItem="Zlx-dp-aet" secondAttribute="centerX" id="ODi-Ai-zrQ"/>
                             <constraint firstItem="brC-lg-Xpb" firstAttribute="top" secondItem="IrN-fK-Ckt" secondAttribute="bottom" constant="44.5" id="VGW-tW-Rbn"/>
+                            <constraint firstItem="IrN-fK-Ckt" firstAttribute="top" secondItem="PZR-th-O6Q" secondAttribute="bottom" constant="50" id="WOT-l9-2YO"/>
                             <constraint firstItem="IrN-fK-Ckt" firstAttribute="centerY" secondItem="Zlx-dp-aet" secondAttribute="centerY" id="bBm-4L-Twm"/>
+                            <constraint firstItem="PZR-th-O6Q" firstAttribute="centerX" secondItem="Zlx-dp-aet" secondAttribute="centerX" id="uFc-dE-d5a"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="录音" id="ke9-uP-XMB">
@@ -62,6 +71,7 @@
                     <connections>
                         <outlet property="playBtn" destination="brC-lg-Xpb" id="Ies-Nj-3qS"/>
                         <outlet property="recordBtn" destination="IrN-fK-Ckt" id="hjG-My-rCi"/>
+                        <outlet property="spectrumView" destination="PZR-th-O6Q" id="Qhy-p4-JA6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ozs-X2-JAt" userLabel="First Responder" sceneMemberID="firstResponder"/>

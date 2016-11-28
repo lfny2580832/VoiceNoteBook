@@ -22,7 +22,7 @@ class PlayerManager: NSObject{
 
     let session:AVAudioSession = AVAudioSession.sharedInstance()
     var player:AVAudioPlayer?
-    var aDelegate : PlayerManagerProtocal?
+    weak var aDelegate : PlayerManagerProtocal?
     var recordModel : RecordModel?
     
     private override init() {

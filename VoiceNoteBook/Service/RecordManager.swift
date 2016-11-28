@@ -33,12 +33,19 @@ class RecordManager: NSObject{
         super.init()
     }
     
+    ///返回power
+    func recorderPower() -> Float? {
+        recorder?.updateMeters()
+        return recorder?.averagePower(forChannel: 0)
+    }
+    
     ///开始录制
     func startRecording()  {
         setSessionStatus(isActive: true)
         initRecorder()
         recorder?.prepareToRecord()
         recorder?.record()
+        
     }
     
     ///结束录制
@@ -78,6 +85,7 @@ class RecordManager: NSObject{
             do {
                 recorder = try AVAudioRecorder(url: path, settings: recordSettings)
                 recorder?.delegate = self
+                recorder?.isMeteringEnabled = true
             } catch let error {
                 recorder = nil
                 print(error.localizedDescription)
@@ -107,12 +115,12 @@ extension RecordManager: AVAudioRecorderDelegate{
         self.setSessionStatus(isActive: false)
 
         //上传七牛
-        if let filePath = self.latestFilePath{
-            let name = filePath.lastPathComponent
-            DispatchQueue.global().async {
-                QiniuManager.sharedInstance.uploadRecord(name: name,path: filePath)
-            }
-        }
+//        if let filePath = self.latestFilePath{
+//            let name = filePath.lastPathComponent
+//            DispatchQueue.global().async {
+//                QiniuManager.sharedInstance.uploadRecord(name: name,path: filePath)
+//            }
+//        }
     }
     
     //录制出错
